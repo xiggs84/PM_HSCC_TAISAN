@@ -1,0 +1,125 @@
+{
+  "annotations": {
+    "changelogDate": "20240717020613"
+  },
+  "applications": ["gateway", "TaiSan"],
+  "clientRootFolder": "TaiSan",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idTaiSan",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tenTaiSan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trangThai",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "thongTinTs",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ghiChu",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ngayThaoTac",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "nguoiThaoTac",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idDuongSu",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idTsGoc",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "maTaiSan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "idLoaiNganChan",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ngayBdNganChan",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ngayKtNganChan",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "idMaster",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "strSearch",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "idDonVi",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soHsCv",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soCc",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soVaoSo",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "moTa",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "loaiNganChan",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "syncStatus",
+      "fieldType": "Long"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "TaiSan",
+  "name": "TaiSan",
+  "relationships": [
+    {
+      "otherEntityName": "taiSan",
+      "relationshipName": "idTsGoc",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "danhMucLoaiTaiSan",
+      "relationshipName": "idLoaiTs",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "tinhTrangTaiSan",
+      "relationshipName": "idTinhTrang",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl",
+  "skipServer": true
+}

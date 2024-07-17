@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20240717021213"
+  },
+  "applications": ["gateway", "TaiSan"],
+  "clientRootFolder": "TaiSan",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idMaster",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "noiCapQsdd",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "TaiSan",
+  "name": "TaisanSaiQsddDgc",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl",
+  "skipServer": true
+}

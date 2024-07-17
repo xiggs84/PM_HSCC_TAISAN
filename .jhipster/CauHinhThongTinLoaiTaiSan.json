@@ -1,0 +1,50 @@
+{
+  "annotations": {
+    "changelogDate": "20240717021413"
+  },
+  "applications": ["gateway", "TaiSan"],
+  "clientRootFolder": "TaiSan",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idCauHinh",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "noiDung",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "javascript",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "css",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "idLoaiTs",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idDonVi",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "trangThai",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "xml",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "TaiSan",
+  "name": "CauHinhThongTinLoaiTaiSan",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl",
+  "skipServer": true
+}

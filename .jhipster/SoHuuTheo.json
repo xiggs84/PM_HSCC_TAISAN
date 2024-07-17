@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240717021813"
+  },
+  "applications": ["gateway", "TaiSan"],
+  "clientRootFolder": "TaiSan",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idSoHuu",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "dienGiai",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tenGcn",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "TaiSan",
+  "name": "SoHuuTheo",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl",
+  "skipServer": true
+}

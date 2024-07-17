@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20240717021513"
+  },
+  "applications": ["gateway", "TaiSan"],
+  "clientRootFolder": "TaiSan",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idLoaiTs",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "dienGiai",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trangThai",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "searchStr",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "TaiSan",
+  "name": "DanhMucLoaiTaiSan",
+  "relationships": [
+    {
+      "otherEntityName": "taiSan",
+      "otherEntityRelationshipName": "idLoaiTs",
+      "relationshipName": "taiSan",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "danhSachTaiSan",
+      "otherEntityRelationshipName": "idLoaiTs",
+      "relationshipName": "danhSachTaiSan",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl",
+  "skipServer": true
+}
