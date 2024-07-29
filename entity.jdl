@@ -183,6 +183,6 @@ relationship OneToMany {
 //  DanhMucCanBo to LogThaoTac{nguoiThaoTac},
 //  TaiSan to LogThaoTac{idKhoa}
 //}
+paginate * with pagination
+service * with serviceClass
 dto * with mapstruct
-service * with serviceImpl
-filter *
