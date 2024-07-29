@@ -8,14 +8,17 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.vnpt.repository.CauHinhThongTinLoaiTaiSanRepository;
-import vn.vnpt.service.CauHinhThongTinLoaiTaiSanQueryService;
 import vn.vnpt.service.CauHinhThongTinLoaiTaiSanService;
-import vn.vnpt.service.criteria.CauHinhThongTinLoaiTaiSanCriteria;
 import vn.vnpt.service.dto.CauHinhThongTinLoaiTaiSanDTO;
 import vn.vnpt.web.rest.errors.BadRequestAlertException;
 
@@ -37,16 +40,12 @@ public class CauHinhThongTinLoaiTaiSanResource {
 
     private final CauHinhThongTinLoaiTaiSanRepository cauHinhThongTinLoaiTaiSanRepository;
 
-    private final CauHinhThongTinLoaiTaiSanQueryService cauHinhThongTinLoaiTaiSanQueryService;
-
     public CauHinhThongTinLoaiTaiSanResource(
         CauHinhThongTinLoaiTaiSanService cauHinhThongTinLoaiTaiSanService,
-        CauHinhThongTinLoaiTaiSanRepository cauHinhThongTinLoaiTaiSanRepository,
-        CauHinhThongTinLoaiTaiSanQueryService cauHinhThongTinLoaiTaiSanQueryService
+        CauHinhThongTinLoaiTaiSanRepository cauHinhThongTinLoaiTaiSanRepository
     ) {
         this.cauHinhThongTinLoaiTaiSanService = cauHinhThongTinLoaiTaiSanService;
         this.cauHinhThongTinLoaiTaiSanRepository = cauHinhThongTinLoaiTaiSanRepository;
-        this.cauHinhThongTinLoaiTaiSanQueryService = cauHinhThongTinLoaiTaiSanQueryService;
     }
 
     /**
@@ -146,27 +145,17 @@ public class CauHinhThongTinLoaiTaiSanResource {
     /**
      * {@code GET  /cau-hinh-thong-tin-loai-tai-sans} : get all the cauHinhThongTinLoaiTaiSans.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cauHinhThongTinLoaiTaiSans in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<CauHinhThongTinLoaiTaiSanDTO>> getAllCauHinhThongTinLoaiTaiSans(CauHinhThongTinLoaiTaiSanCriteria criteria) {
-        log.debug("REST request to get CauHinhThongTinLoaiTaiSans by criteria: {}", criteria);
-
-        List<CauHinhThongTinLoaiTaiSanDTO> entityList = cauHinhThongTinLoaiTaiSanQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /cau-hinh-thong-tin-loai-tai-sans/count} : count all the cauHinhThongTinLoaiTaiSans.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countCauHinhThongTinLoaiTaiSans(CauHinhThongTinLoaiTaiSanCriteria criteria) {
-        log.debug("REST request to count CauHinhThongTinLoaiTaiSans by criteria: {}", criteria);
-        return ResponseEntity.ok().body(cauHinhThongTinLoaiTaiSanQueryService.countByCriteria(criteria));
+    public ResponseEntity<List<CauHinhThongTinLoaiTaiSanDTO>> getAllCauHinhThongTinLoaiTaiSans(
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get a page of CauHinhThongTinLoaiTaiSans");
+        Page<CauHinhThongTinLoaiTaiSanDTO> page = cauHinhThongTinLoaiTaiSanService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

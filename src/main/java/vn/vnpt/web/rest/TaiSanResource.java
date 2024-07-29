@@ -8,14 +8,18 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.vnpt.repository.TaiSanRepository;
-import vn.vnpt.service.TaiSanQueryService;
 import vn.vnpt.service.TaiSanService;
-import vn.vnpt.service.criteria.TaiSanCriteria;
 import vn.vnpt.service.dto.TaiSanDTO;
 import vn.vnpt.web.rest.errors.BadRequestAlertException;
 
@@ -37,12 +41,9 @@ public class TaiSanResource {
 
     private final TaiSanRepository taiSanRepository;
 
-    private final TaiSanQueryService taiSanQueryService;
-
-    public TaiSanResource(TaiSanService taiSanService, TaiSanRepository taiSanRepository, TaiSanQueryService taiSanQueryService) {
+    public TaiSanResource(TaiSanService taiSanService, TaiSanRepository taiSanRepository) {
         this.taiSanService = taiSanService;
         this.taiSanRepository = taiSanRepository;
-        this.taiSanQueryService = taiSanQueryService;
     }
 
     /**
@@ -136,27 +137,30 @@ public class TaiSanResource {
     /**
      * {@code GET  /tai-sans} : get all the taiSans.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of taiSans in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<TaiSanDTO>> getAllTaiSans(TaiSanCriteria criteria) {
-        log.debug("REST request to get TaiSans by criteria: {}", criteria);
-
-        List<TaiSanDTO> entityList = taiSanQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /tai-sans/count} : count all the taiSans.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countTaiSans(TaiSanCriteria criteria) {
-        log.debug("REST request to count TaiSans by criteria: {}", criteria);
-        return ResponseEntity.ok().body(taiSanQueryService.countByCriteria(criteria));
+    public ResponseEntity<List<TaiSanDTO>> getAllTaiSans(
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
+        @RequestParam(name = "filter", required = false) String filter,
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
+        if ("taisanduongsu-is-null".equals(filter)) {
+            log.debug("REST request to get all TaiSans where taiSanDuongSu is null");
+            return new ResponseEntity<>(taiSanService.findAllWhereTaiSanDuongSuIsNull(), HttpStatus.OK);
+        }
+        log.debug("REST request to get a page of TaiSans");
+        Page<TaiSanDTO> page;
+        if (eagerload) {
+            page = taiSanService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = taiSanService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -185,5 +189,12 @@ public class TaiSanResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<TaiSanDTO>> searchTaiSansByTenTaiSan(@RequestParam String tenTaiSan) {
+        log.debug("REST request to search TaiSans by tenTaiSan : {}", tenTaiSan);
+        List<TaiSanDTO> result = taiSanService.findByTenTaiSan(tenTaiSan);
+        return ResponseEntity.ok().body(result);
     }
 }

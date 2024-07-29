@@ -8,14 +8,17 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.vnpt.repository.TaiSanDuongSuRepository;
-import vn.vnpt.service.TaiSanDuongSuQueryService;
 import vn.vnpt.service.TaiSanDuongSuService;
-import vn.vnpt.service.criteria.TaiSanDuongSuCriteria;
 import vn.vnpt.service.dto.TaiSanDuongSuDTO;
 import vn.vnpt.web.rest.errors.BadRequestAlertException;
 
@@ -37,16 +40,9 @@ public class TaiSanDuongSuResource {
 
     private final TaiSanDuongSuRepository taiSanDuongSuRepository;
 
-    private final TaiSanDuongSuQueryService taiSanDuongSuQueryService;
-
-    public TaiSanDuongSuResource(
-        TaiSanDuongSuService taiSanDuongSuService,
-        TaiSanDuongSuRepository taiSanDuongSuRepository,
-        TaiSanDuongSuQueryService taiSanDuongSuQueryService
-    ) {
+    public TaiSanDuongSuResource(TaiSanDuongSuService taiSanDuongSuService, TaiSanDuongSuRepository taiSanDuongSuRepository) {
         this.taiSanDuongSuService = taiSanDuongSuService;
         this.taiSanDuongSuRepository = taiSanDuongSuRepository;
-        this.taiSanDuongSuQueryService = taiSanDuongSuQueryService;
     }
 
     /**
@@ -140,27 +136,15 @@ public class TaiSanDuongSuResource {
     /**
      * {@code GET  /tai-san-duong-sus} : get all the taiSanDuongSus.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of taiSanDuongSus in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<TaiSanDuongSuDTO>> getAllTaiSanDuongSus(TaiSanDuongSuCriteria criteria) {
-        log.debug("REST request to get TaiSanDuongSus by criteria: {}", criteria);
-
-        List<TaiSanDuongSuDTO> entityList = taiSanDuongSuQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /tai-san-duong-sus/count} : count all the taiSanDuongSus.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countTaiSanDuongSus(TaiSanDuongSuCriteria criteria) {
-        log.debug("REST request to count TaiSanDuongSus by criteria: {}", criteria);
-        return ResponseEntity.ok().body(taiSanDuongSuQueryService.countByCriteria(criteria));
+    public ResponseEntity<List<TaiSanDuongSuDTO>> getAllTaiSanDuongSus(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+        log.debug("REST request to get a page of TaiSanDuongSus");
+        Page<TaiSanDuongSuDTO> page = taiSanDuongSuService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

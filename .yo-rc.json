@@ -25,7 +25,7 @@
     "jhipsterVersion": "8.6.0",
     "jwtSecretKey": "YTFlM2M4YTM1NTBhYzI4ZGUzYzRjNDBjYjUxOWM3Y2QxZGU5N2ZhNjVlMTJmNmFhZDE0NWVmNTAxYzU4MDA1MmI2MTk5MDUzOTY2ZWVkM2VlOTAzMGM2MGQzZjJlYmI5OWYyMWRmZjFjYmNkODRlNmIxNWExMmE1MTQ4ZjE4MTk=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1721960267000,
+    "lastLiquibaseTimestamp": 1722243990000,
     "nativeLanguage": "en",
     "packageFolder": "vn/vnpt",
     "packageName": "vn.vnpt",

@@ -15,8 +15,7 @@ import vn.vnpt.domain.TaiSan;
  * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
-public interface TaiSanRepository
-    extends TaiSanRepositoryWithBagRelationships, JpaRepository<TaiSan, Long>, JpaSpecificationExecutor<TaiSan> {
+public interface TaiSanRepository extends TaiSanRepositoryWithBagRelationships, JpaRepository<TaiSan, Long> {
     default Optional<TaiSan> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findById(id));
     }
@@ -28,4 +27,6 @@ public interface TaiSanRepository
     default Page<TaiSan> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    List<TaiSan> findByTenTaiSanContainingIgnoreCase(String tenTaiSan);
 }

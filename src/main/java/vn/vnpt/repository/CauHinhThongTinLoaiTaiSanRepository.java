@@ -9,5 +9,4 @@ import vn.vnpt.domain.CauHinhThongTinLoaiTaiSan;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CauHinhThongTinLoaiTaiSanRepository
-    extends JpaRepository<CauHinhThongTinLoaiTaiSan, Long>, JpaSpecificationExecutor<CauHinhThongTinLoaiTaiSan> {}
+public interface CauHinhThongTinLoaiTaiSanRepository extends JpaRepository<CauHinhThongTinLoaiTaiSan, Long> {}

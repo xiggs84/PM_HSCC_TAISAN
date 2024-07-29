@@ -8,14 +8,17 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.vnpt.repository.TaiSanDgcRepository;
-import vn.vnpt.service.TaiSanDgcQueryService;
 import vn.vnpt.service.TaiSanDgcService;
-import vn.vnpt.service.criteria.TaiSanDgcCriteria;
 import vn.vnpt.service.dto.TaiSanDgcDTO;
 import vn.vnpt.web.rest.errors.BadRequestAlertException;
 
@@ -37,16 +40,9 @@ public class TaiSanDgcResource {
 
     private final TaiSanDgcRepository taiSanDgcRepository;
 
-    private final TaiSanDgcQueryService taiSanDgcQueryService;
-
-    public TaiSanDgcResource(
-        TaiSanDgcService taiSanDgcService,
-        TaiSanDgcRepository taiSanDgcRepository,
-        TaiSanDgcQueryService taiSanDgcQueryService
-    ) {
+    public TaiSanDgcResource(TaiSanDgcService taiSanDgcService, TaiSanDgcRepository taiSanDgcRepository) {
         this.taiSanDgcService = taiSanDgcService;
         this.taiSanDgcRepository = taiSanDgcRepository;
-        this.taiSanDgcQueryService = taiSanDgcQueryService;
     }
 
     /**
@@ -140,27 +136,15 @@ public class TaiSanDgcResource {
     /**
      * {@code GET  /tai-san-dgcs} : get all the taiSanDgcs.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of taiSanDgcs in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<TaiSanDgcDTO>> getAllTaiSanDgcs(TaiSanDgcCriteria criteria) {
-        log.debug("REST request to get TaiSanDgcs by criteria: {}", criteria);
-
-        List<TaiSanDgcDTO> entityList = taiSanDgcQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /tai-san-dgcs/count} : count all the taiSanDgcs.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countTaiSanDgcs(TaiSanDgcCriteria criteria) {
-        log.debug("REST request to count TaiSanDgcs by criteria: {}", criteria);
-        return ResponseEntity.ok().body(taiSanDgcQueryService.countByCriteria(criteria));
+    public ResponseEntity<List<TaiSanDgcDTO>> getAllTaiSanDgcs(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+        log.debug("REST request to get a page of TaiSanDgcs");
+        Page<TaiSanDgcDTO> page = taiSanDgcService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

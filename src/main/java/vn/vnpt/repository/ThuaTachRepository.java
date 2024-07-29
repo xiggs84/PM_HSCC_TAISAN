@@ -9,4 +9,4 @@ import vn.vnpt.domain.ThuaTach;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ThuaTachRepository extends JpaRepository<ThuaTach, Long>, JpaSpecificationExecutor<ThuaTach> {}
+public interface ThuaTachRepository extends JpaRepository<ThuaTach, Long> {}

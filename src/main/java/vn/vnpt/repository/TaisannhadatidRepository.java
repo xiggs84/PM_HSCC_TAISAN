@@ -9,4 +9,4 @@ import vn.vnpt.domain.Taisannhadatid;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TaisannhadatidRepository extends JpaRepository<Taisannhadatid, Long>, JpaSpecificationExecutor<Taisannhadatid> {}
+public interface TaisannhadatidRepository extends JpaRepository<Taisannhadatid, Long> {}

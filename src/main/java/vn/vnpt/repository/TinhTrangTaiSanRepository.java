@@ -9,4 +9,4 @@ import vn.vnpt.domain.TinhTrangTaiSan;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TinhTrangTaiSanRepository extends JpaRepository<TinhTrangTaiSan, Long>, JpaSpecificationExecutor<TinhTrangTaiSan> {}
+public interface TinhTrangTaiSanRepository extends JpaRepository<TinhTrangTaiSan, Long> {}

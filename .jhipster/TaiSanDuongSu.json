@@ -1,6 +1,6 @@
 {
   "annotations": {
-    "changelogDate": "20240726021736"
+    "changelogDate": "20240729090619"
   },
   "applications": "*",
   "clientRootFolder": "TaiSan",
@@ -28,9 +28,9 @@
       "fieldType": "Long"
     }
   ],
-  "jpaMetamodelFiltering": true,
   "microserviceName": "TaiSan",
   "name": "TaiSanDuongSu",
+  "pagination": "pagination",
   "relationships": [
     {
       "otherEntityName": "taiSan",
@@ -40,5 +40,5 @@
     }
   ],
   "searchEngine": "no",
-  "service": "serviceImpl"
+  "service": "serviceClass"
 }

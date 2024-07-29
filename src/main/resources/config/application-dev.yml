@@ -52,7 +52,7 @@ spring:
           - git-version=${git.commit.id.describe:}
           - git-commit=${git.commit.id.abbrev:}
           - git-branch=${git.branch:}
-      host: localhost
+      host: 192.168.1.42
       port: 8500
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -109,7 +109,7 @@ jhipster:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
       enabled: false
-      host: localhost
+      host: 192.168.1.42
       port: 5000
       ring-buffer-size: 512
 # ===================================================================

@@ -41,7 +41,7 @@ spring:
     consul:
       discovery:
         prefer-ip-address: true
-      host: localhost
+      host: 192.168.1.42
       port: 8500
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -114,7 +114,7 @@ jhipster:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
       enabled: false
-      host: localhost
+      host: 192.168.1.42
       port: 5000
       ring-buffer-size: 512
 # ===================================================================

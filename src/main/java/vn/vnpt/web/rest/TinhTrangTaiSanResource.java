@@ -8,14 +8,17 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.vnpt.repository.TinhTrangTaiSanRepository;
-import vn.vnpt.service.TinhTrangTaiSanQueryService;
 import vn.vnpt.service.TinhTrangTaiSanService;
-import vn.vnpt.service.criteria.TinhTrangTaiSanCriteria;
 import vn.vnpt.service.dto.TinhTrangTaiSanDTO;
 import vn.vnpt.web.rest.errors.BadRequestAlertException;
 
@@ -37,16 +40,9 @@ public class TinhTrangTaiSanResource {
 
     private final TinhTrangTaiSanRepository tinhTrangTaiSanRepository;
 
-    private final TinhTrangTaiSanQueryService tinhTrangTaiSanQueryService;
-
-    public TinhTrangTaiSanResource(
-        TinhTrangTaiSanService tinhTrangTaiSanService,
-        TinhTrangTaiSanRepository tinhTrangTaiSanRepository,
-        TinhTrangTaiSanQueryService tinhTrangTaiSanQueryService
-    ) {
+    public TinhTrangTaiSanResource(TinhTrangTaiSanService tinhTrangTaiSanService, TinhTrangTaiSanRepository tinhTrangTaiSanRepository) {
         this.tinhTrangTaiSanService = tinhTrangTaiSanService;
         this.tinhTrangTaiSanRepository = tinhTrangTaiSanRepository;
-        this.tinhTrangTaiSanQueryService = tinhTrangTaiSanQueryService;
     }
 
     /**
@@ -141,27 +137,17 @@ public class TinhTrangTaiSanResource {
     /**
      * {@code GET  /tinh-trang-tai-sans} : get all the tinhTrangTaiSans.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tinhTrangTaiSans in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<TinhTrangTaiSanDTO>> getAllTinhTrangTaiSans(TinhTrangTaiSanCriteria criteria) {
-        log.debug("REST request to get TinhTrangTaiSans by criteria: {}", criteria);
-
-        List<TinhTrangTaiSanDTO> entityList = tinhTrangTaiSanQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /tinh-trang-tai-sans/count} : count all the tinhTrangTaiSans.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countTinhTrangTaiSans(TinhTrangTaiSanCriteria criteria) {
-        log.debug("REST request to count TinhTrangTaiSans by criteria: {}", criteria);
-        return ResponseEntity.ok().body(tinhTrangTaiSanQueryService.countByCriteria(criteria));
+    public ResponseEntity<List<TinhTrangTaiSanDTO>> getAllTinhTrangTaiSans(
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get a page of TinhTrangTaiSans");
+        Page<TinhTrangTaiSanDTO> page = tinhTrangTaiSanService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

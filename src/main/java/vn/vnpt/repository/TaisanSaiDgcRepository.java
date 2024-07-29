@@ -9,4 +9,4 @@ import vn.vnpt.domain.TaisanSaiDgc;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TaisanSaiDgcRepository extends JpaRepository<TaisanSaiDgc, Long>, JpaSpecificationExecutor<TaisanSaiDgc> {}
+public interface TaisanSaiDgcRepository extends JpaRepository<TaisanSaiDgc, Long> {}

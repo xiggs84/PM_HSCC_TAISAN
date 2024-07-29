@@ -9,4 +9,4 @@ import vn.vnpt.domain.TaiSanDatNha;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TaiSanDatNhaRepository extends JpaRepository<TaiSanDatNha, Long>, JpaSpecificationExecutor<TaiSanDatNha> {}
+public interface TaiSanDatNhaRepository extends JpaRepository<TaiSanDatNha, Long> {}

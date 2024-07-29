@@ -9,4 +9,4 @@ import vn.vnpt.domain.SoHuuTheo;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SoHuuTheoRepository extends JpaRepository<SoHuuTheo, Long>, JpaSpecificationExecutor<SoHuuTheo> {}
+public interface SoHuuTheoRepository extends JpaRepository<SoHuuTheo, Long> {}
