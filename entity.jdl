@@ -1,0 +1,188 @@
+entity TinhTrangTaiSan {
+    idTinhTrang Long
+    dienGiai String
+    trangThai Long
+}
+
+entity DanhMucLoaiTaiSan {
+    idLoaiTs Long
+    dienGiai String
+    trangThai Long
+    searchStr String
+}
+entity TaiSanDuongSu {
+    trangThai Long
+    idDuongSu Long
+    ngayThaoTac LocalDate
+    idLoaiHopDong Long
+    idChungThuc Long
+}
+
+entity TaisanSaiQsddDgc {
+    idMaster Long
+    noiCapQsdd String
+}
+
+
+entity Taisannhadatid {
+    idTaiSan Long
+    thongTinTs String
+}
+entity TaiSan {
+    idTaiSan Long
+    tenTaiSan String
+    trangThai Long
+    thongTinTs String
+    ghiChu String
+    ngayThaoTac LocalDate
+    nguoiThaoTac Long
+    idDuongSu Long
+    idTsGoc Long
+    maTaiSan String
+    idLoaiNganChan Long
+    ngayBdNganChan LocalDate
+    ngayKtNganChan LocalDate
+    idMaster Long
+    strSearch String
+    idDonVi Long
+    soHsCv Long
+    soCc Long
+    soVaoSo Long
+    moTa String
+    loaiNganChan Long
+    syncStatus Long
+}
+
+entity CauHinhThongTinLoaiTaiSan {
+    idCauHinh Long
+    noiDung String
+    javascript String
+    css String
+    idLoaiTs Long
+    idDonVi Long
+    trangThai Long
+    xml String
+}
+entity TaiSanDgc {
+    idTaiSan Long
+    tenTaiSan String
+    trangThai Long
+    thongTinTs String
+    idLoaiTs Long
+    ghiChu String
+    ngayThaoTac LocalDate
+    nguoiThaoTac Long
+    idDuongSu Long
+    idTsGoc Long
+    maTaiSan String
+    idTinhTrang Long
+    idLoaiNganChan Long
+    ngayBdNganChan LocalDate
+    ngayKtNganChan LocalDate
+    idMaster Long
+    strSearch String
+    idDonVi Long
+    soHsCv Long
+    soCc Long
+    soVaoSo Long
+    moTa String
+}
+
+entity TaisanSaiDgc {
+    idMaster Long
+    thongTinTs String
+    thongTinTsDung String
+}
+
+entity ThuaTach {
+    idThuaTach Long
+    idTaiSan Long
+    thongTinThuaTach String
+    trangThai Long
+}
+
+entity SoHuuTheo {
+    idSoHuu Long
+    dienGiai String
+    tenGcn String
+}
+
+entity TaiSanDatNha {
+    idTaiSan Long
+    tenTaiSan String
+    trangThai Long
+    thongTinTs String
+    idLoaiTs Long
+    ghiChu String
+    ngayThaoTac LocalDate
+    nguoiThaoTac Long
+    idDuongSu Long
+    idTsGoc Long
+    maTaiSan String
+    idTinhTrang Long
+    idLoaiNganChan Long
+    ngayBdNganChan LocalDate
+    ngayKtNganChan LocalDate
+    idMaster Long
+    strSearch String
+    idDonVi Long
+    soHsCv Long
+    soCc Long
+    soVaoSo Long
+    moTa String
+    loaiNganChan Long
+}
+entity DanhSachTaiSan {
+    idTaiSan Long
+    tenTaiSan String
+    trangThai Long
+    ghiChu String
+    ngayThaoTac LocalDate
+    nguoiThaoTac Long
+    idDuongSu Long
+    idTsGoc Long
+    maTaiSan String
+    idTinhTrang Long
+    idLoaiNganChan Long
+    ngayBdNganChan LocalDate
+    ngayKtNganChan LocalDate
+    idMaster Long
+    strSearch String
+    idDonVi Long
+    soHsCv Long
+    soCc Long
+    soVaoSo Long
+    moTa String
+    loaiNganChan Long
+    maXa String
+}
+
+//TaiSan
+relationship ManyToMany{
+    TaiSan{idTsGoc} to TaiSan
+}
+relationship OneToOne{
+    TaiSanDuongSu{idTaiSan} to TaiSan
+}
+relationship OneToMany{
+    DanhMucLoaiTaiSan to TaiSan{idLoaiTs},
+    TinhTrangTaiSan to TaiSan{idTinhTrang},
+    //  DanhMucDonVi to TaiSan{idDonVi},
+    TinhTrangTaiSan to TaiSan{idTinhTrang},
+    //  ChiTietNganChan to TaiSan{loaiNganChan},
+    //  HopDongCongChung to TaiSanDuongSu{idHopDong}
+}
+
+relationship OneToMany {
+    DanhMucLoaiTaiSan to DanhSachTaiSan{idLoaiTs},
+}
+
+
+//LogThaoTac
+//relationship OneToMany {
+//  DanhMucCanBo to LogThaoTac{nguoiThaoTac},
+//  TaiSan to LogThaoTac{idKhoa}
+//}
+dto * with mapstruct
+service * with serviceImpl
+filter *

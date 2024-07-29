@@ -1,8 +1,8 @@
 {
   "annotations": {
-    "changelogDate": "20240717021713"
+    "changelogDate": "20240726021746"
   },
-  "applications": ["gateway", "TaiSan"],
+  "applications": "*",
   "clientRootFolder": "TaiSan",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -29,6 +29,5 @@
   "name": "ThuaTach",
   "relationships": [],
   "searchEngine": "no",
-  "service": "serviceImpl",
-  "skipServer": true
+  "service": "serviceImpl"
 }
